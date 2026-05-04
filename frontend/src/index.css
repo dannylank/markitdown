@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        background-color: #09090b;
+        color: #fafafa;
+        -webkit-font-smoothing: antialiased;
+    }
+}
+
+@layer utilities {
+    .dot-grid {
+        background-image: radial-gradient(circle, #3f3f46 1px, transparent 1px);
+        background-size: 28px 28px;
+    }
+
+    .drop-glow {
+        box-shadow: 0 0 40px 0 rgba(251, 191, 36, 0.08);
+    }
+}
