@@ -58,8 +58,8 @@ Una aplicación web full-stack con frontend moderno en React y backend en Python
    ```
 
 3. **Accede a la aplicación:**
-   - Frontend: http://localhost:3000
-   - Backend: http://localhost:8000
+   - Frontend: http://localhost:8080
+   - Backend: http://localhost:5000
 
 4. **Para detener los servicios:**
    ```bash
@@ -179,12 +179,14 @@ En `docker-compose.yml`:
 services:
   backend:
     ports:
-      - "8000:8000"  # Cambiar puerto aquí
+      - "5000:8000"  # Primer número = puerto externo en VPS
   
   frontend:
     ports:
-      - "3000:80"    # Cambiar puerto aquí
+      - "8080:80"    # Primer número = puerto externo en VPS
 ```
+
+**Nota**: El primer puerto es el que expones en la VPS, el segundo es el puerto interno del contenedor.
 
 ## 🚢 Despliegue en Producción
 
@@ -201,9 +203,14 @@ services:
    docker push your-registry/markitdown-frontend:latest
    ```
 
-3. **Deploy con Docker Compose:**
+3. **Deploy con Docker Compose en VPS:**
    ```bash
-   docker-compose -f docker-compose.yml up -d
+   # Clona el repositorio en tu VPS
+   git clone https://github.com/dannylank/markitdown.git
+   cd markitdown
+   
+   # Inicia los servicios
+   docker-compose up -d
    ```
 
 ### En Plataformas en la Nube
@@ -226,12 +233,13 @@ git push origin feature/mi-feature
 
 ### Puerto ya en uso
 ```bash
-# Linux/Mac: Encontrar y matar el proceso
-lsof -i :8000
+# En VPS (Linux): Encontrar proceso en puerto
+lsof -i :5000    # Backend
+lsof -i :8080    # Frontend
 kill -9 <PID>
 
 # Windows: Con PowerShell
-netstat -ano | findstr :8000
+netstat -ano | findstr :5000
 taskkill /PID <PID> /F
 ```
 
